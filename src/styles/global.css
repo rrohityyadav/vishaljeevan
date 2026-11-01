@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Raleway", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-navy: #204A80;
+  --color-navy-dark: #173D6D;
+  --color-navy-deep: #0F2C52;
+  --color-water: #079DDD;
+  --color-ice: #DCEEFF;
+  --color-ink: #17385F;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { margin: 0; font-family: var(--font-sans); color: var(--color-ink); background: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img, svg { max-width: 100%; }
+:focus-visible { outline: 3px solid var(--color-water); outline-offset: 3px; border-radius: 4px; }
+.skip-link { position: absolute; left: -999px; top: 0; z-index: 100; background: #fff; color: var(--color-navy-dark); padding: .75rem 1rem; font-weight: 700; }
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* Polygon facets, echoing the reference's geometric navy backgrounds */
+.facets {
+  background-color: var(--color-navy);
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,.05) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(0,0,0,.08) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255,255,255,.035) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(0,0,0,.06) 25%, transparent 25%);
+  background-size: 340px 340px, 420px 420px, 520px 520px, 260px 260px;
+  background-position: 0 0, 90px 40px, 40px 120px, 150px 200px;
+}
+
+/* Diagonal separators (shallower slope on narrow screens) */
+:root { --slope: 36px; }
+@media (min-width: 768px) { :root { --slope: 64px; } }
+@media (min-width: 1280px) { :root { --slope: 92px; } }
+.diag-bottom { clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--slope)), 0 100%); }
+.diag-top { clip-path: polygon(0 var(--slope), 100% 0, 100% 100%, 0 100%); }
+.diag-both { clip-path: polygon(0 var(--slope), 100% 0, 100% calc(100% - var(--slope)), 0 100%); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .85rem 1.5rem; font-weight: 700; font-size: .95rem; border-radius: 4px; transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease; cursor: pointer; text-align: center; }
+.btn:hover { transform: translateY(-2px); }
+.btn-water { background: var(--color-water); color: #fff; box-shadow: 0 10px 24px -10px rgba(7,157,221,.8); }
+.btn-water:hover { background: #0a8ac4; }
+.btn-ghost { border: 2px solid rgba(255,255,255,.7); color: #fff; }
+.btn-ghost:hover { background: #fff; color: var(--color-navy-dark); }
+.btn-navy { background: var(--color-navy-dark); color: #fff; }
+.btn-navy:hover { background: var(--color-navy); }
+
+@keyframes wa-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+@keyframes ripple { 0% { transform: scale(.9); opacity: .55 } 100% { transform: scale(1.7); opacity: 0 } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
